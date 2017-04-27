@@ -1,0 +1,52 @@
+/**圣杯**/
+body {
+	background: #eee;
+}
+article, section {
+	background: white;
+}
+.left {
+	width: 200px;
+	background: white;
+	overflow: hidden;
+	position: relative;
+	left: -200px;
+	margin-left: -100%;
+	float: left;
+}
+
+.center {
+	position: relative;
+	width: 100%;
+	float: left;
+}
+.right {
+	width: 120px;
+	position: relative;
+	right:-120px;
+	margin-left: -120px;
+	float: left;
+}
+
+.left img {
+	float: left;
+	margin: 10px;
+	width: 80px;
+}
+.right div {
+	text-align: center;
+	margin: 10px;
+}
+.right div img {
+	width: 80px;
+}
+
+#container {
+	border: 1px solid red;
+	height: auto;
+	padding: 0 120px 0 200px;
+	overflow: hidden;
+}
+#main {
+	float: left;
+}

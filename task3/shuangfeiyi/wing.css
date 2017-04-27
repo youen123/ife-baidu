@@ -1,0 +1,49 @@
+/* 双飞翼*/
+* {
+	padding: 0;
+	margin: 0;
+}
+body {
+	background: #eee;
+}
+.left {
+	width: 200px;
+	background: white;
+	overflow: hidden;
+	float: left;
+	margin-left: -100%;
+}
+
+.center {
+	margin: 0 130px 0 210px;
+	padding: 10px;
+}
+.right {
+	width: 120px;
+	float: left;
+	margin-left: -120px;
+}
+
+.left img {
+	float: left;
+	margin: 10px;
+	width: 80px;
+}
+.right div {
+	text-align: center;
+	margin: 10px;
+}
+.right div img {
+	width: 80px;
+}
+article, section {
+	background: white;
+}
+#container {
+	border: 1px solid red;
+	height: auto;
+	overflow: hidden;
+}
+#main {
+	float: left;
+}

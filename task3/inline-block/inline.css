@@ -1,0 +1,41 @@
+img {
+	width: 80px;
+}
+body {
+	background: #eee;
+}
+.left {
+	width: 200px;
+	background: white;
+	margin: 10px;
+	overflow: hidden;
+	height: auto;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.left img {
+	float: left;
+	margin: 10px;
+}
+.center {
+	padding: 10px;
+	display: inline-block;
+	width: calc(100% - 420px);
+	vertical-align: top;
+}
+.right {
+	width: 120px;
+	display: inline-block;
+}
+.right div {
+	text-align: center;
+	margin: 10px;
+}
+article, section {
+	background: white;
+	margin: 10px;
+}
+#container {
+	border: 1px solid red;
+}

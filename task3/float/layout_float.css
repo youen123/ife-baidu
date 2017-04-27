@@ -1,0 +1,45 @@
+img {
+	width: 80px;
+}
+body {
+	background: #eee;
+}
+.left {
+	width: 200px;
+	background: white;
+	margin: 10px;
+	height: auto;
+	float: left;
+}
+.center {
+	margin-left: 220px;
+	margin-right: 150px;
+	padding: 10px;
+}
+.right {
+	width: 120px;
+	float: right;
+}
+
+.left img {
+	float: left;
+	margin: 10px;
+}
+.right div {
+	text-align: center;
+	margin: 10px;
+}
+article, section {
+	background: white;
+	margin: 10px;
+}
+#container {
+	border: 1px solid red;
+	height: auto;
+	/*overflow: hidden;*/
+}
+#container::after {
+	content: "";
+	clear: both;
+	display: block;
+};
