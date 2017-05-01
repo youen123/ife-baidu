@@ -1,0 +1,126 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    background: #e0e0e0;
+}
+h2 {
+    line-height: 1.8;
+}
+
+header {
+    background: black;
+    overflow: hidden;
+    color: white;
+}
+.brand {
+    /*float: left;*/
+    position: absolute;
+    top:0;
+    width: 220px;
+    height: 82px;
+    display: block;
+    text-indent: -100%;
+    white-space: nowrap;
+    overflow: hidden;
+    background: url("http://ife.baidu.com/2017/asset/common/img/logo_a3b4064.png") center no-repeat;
+    background-size: contain;
+
+}
+header ul {
+    float: right;
+    margin: 0;
+    line-height: 82px;
+}
+header li {
+    display: inline-block;
+    margin: 0 10px;
+}
+header li a {
+    color: white;
+    text-decoration: none;
+}
+article, aside{
+    background: white;
+    margin: 15px;
+    padding: 15px;
+    box-shadow: 2px 2px gray;
+}
+article .ainfo {
+    color: "gray";
+    font-size: 14px;
+    line-height: 2;
+}
+
+footer {
+    text-align: center;
+    background: black;
+    padding: 10px 0;
+    color: white;
+}
+p {
+    text-indent: 2em;
+    line-height: 1.8;
+}
+article ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 20px;
+}
+article ol {
+    margin-left: 20px;
+}
+#pic li div {
+    border: 1px solid gray;
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    display: inline-block;
+}
+table {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+}
+thead {
+    background: black;
+    color: white;
+}
+th, td {
+    border: 1px solid #ddd;
+}
+form label.fl {
+    display: inline-block;
+    width: 30%;
+    text-align: right;
+}
+.input-group {
+    margin: 10px auto;
+}
+.tip {
+    margin: 10px auto;
+    margin-left: 30%;
+    text-indent: 0;
+    color: gray;
+    font-size: 14px;
+}
+textarea {
+    vertical-align: top;
+    width: 60%;
+    height: 80px;
+}
+tfoot {
+    background: #e0e0e0;
+}
+.block-btn {
+    display: block;
+    color: #fff;
+    background: #3b99fc;
+    width: 100%;
+    height: 42px;
+    border: 1px solid gray;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
