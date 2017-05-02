@@ -1,0 +1,28 @@
+.gray {
+    width: 600px;
+    /* height: 400px; */
+    /* padding: 0 50px; */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -300px;
+    transform: translateY(-50%);
+    background: gray;
+    overflow: hidden;
+}
+.left-circle,.right-circle {
+    width: 100px;
+    height: 100px;
+    background: yellow;
+    border-radius: 50px;
+    position: absolute;
+    z-index: -1;
+}
+.left-circle {
+    left: -50px;
+    top: -50px;
+}
+.right-circle {
+    right: -50px;
+    bottom: -50px;
+}
