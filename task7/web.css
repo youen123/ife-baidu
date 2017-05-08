@@ -91,10 +91,12 @@ header {
 }
 #banner article {
     margin-top: 230px;
+    margin-left: 50px;
 }
 #banner article h1 {
     font-size: 54px;
     margin-bottom: 30px;
+
 }
 #banner article p {
     font-size: 20px;
@@ -263,6 +265,9 @@ header {
     border-radius: 5px;
     border: 1px solid gray;
 }
+#slide li.current:after {
+    background: gray;
+}
 #time {
     padding: 136px 0 150px;
     text-align: center;
@@ -312,6 +317,7 @@ header {
     color: #e8504e;
 }
 #volunteer {
+    box-sizing: border-box;
     padding: 118px 140px 168px;
     color: #b7b7b7;
 }
@@ -347,7 +353,7 @@ header {
     text-align: left;
 }
 .half {
-    width: 270px;
+    width: 309px;
     box-sizing: border-box;
     padding-left: 20px;
 }
