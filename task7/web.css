@@ -15,6 +15,10 @@ a {
 .fr {
     float: right;
 }
+.container {
+    width: 1278px;
+    margin: 0 auto;
+}
 .text-center {
     text-align: center;
 }
@@ -30,7 +34,6 @@ a {
     display: block;
 }
 body {
-    width: 1200px;
     margin: 0 auto;
     font-family: sans-serif;
     font-size: 14px;
@@ -83,11 +86,11 @@ header {
     height: 690px;
     color: #fff;
     overflow: hidden;
-    background: url(img/banner.jpg);
+    background: url(img/banner.jpg) no-repeat;
+    background-size: cover;
 }
 #banner article {
     margin-top: 230px;
-    margin-left: 108px;
 }
 #banner article h1 {
     font-size: 54px;
@@ -120,8 +123,6 @@ header {
     text-align: center;
     padding: 44px 0;
     color: #8d8d8d;
-
-    /*border: 1px solid #e8504e;*/
 }
 #intro figcaption {
     padding: 0 88px;
@@ -152,7 +153,8 @@ header {
 #search {
     text-align: center;
     padding: 54px 0 128px;
-    background: url(img/searchbg.jpg);
+    background: url(img/searchbg.jpg) no-repeat;
+    background-size: cover;
     color: #fff;
     overflow: hidden;
 }
@@ -196,15 +198,22 @@ header {
     float: left;
     text-align: center;
     margin-right: 30px;
+    width: 226px;
+    height: 394px;
+    position: relative;
+}
+#gallery .photo:hover {
+    position: absolute;
+    bottom: 0;
 }
 #gallery .photo {
-    padding: 10px;
     border: 1px solid #e2e2e1;
     margin-bottom: 11px;
 }
 #gallery .photo img {
     width: 204px;
     height: 312px;
+    margin: 10px;
 }
 .place {
     font-weight: bold;
@@ -251,16 +260,15 @@ header {
     display: inline-block;
     width: 8px;
     height: 8px;
-    /*background: gray;*/
     border-radius: 5px;
     border: 1px solid gray;
 }
 #time {
-    /*border: 1px solid gray;*/
     padding: 136px 0 150px;
     text-align: center;
     color: #fff;
-    background: url(img/left.jpg);;
+    background: url(img/left.jpg);
+    background-size: cover;
 }
 #time h2 {
     font-size: 46px;
