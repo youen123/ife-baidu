@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>任务五：基础JavaScript练习（一）</title>
+    <style>
+        #container {
+            margin-top: 10px;
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: flex-start;
+        }
+        .redbox {
+            text-align: center;
+            margin-right: 2px;
+            color: #fff;
+            background: red;
+            padding: 10px;
+            /*flex: 0 0 30px;*/
+        }
+        .found {
+            color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <textarea name="content" id="content" cols="30" rows="10"></textarea><br/>
+    <button id="right-in-btn">插入</button>
+    <input type="text" id="searchinput"/>
+    <button id="search">查询</button>
+    <div id="container">
+    </div>
+    <script>
+        var ribtn = document.getElementById('right-in-btn'),
+            input = document.getElementById('content'),
+            searchinput = document.getElementById('searchinput'),
+            searchbtn = document.getElementById('searchbtn'),
+            container = document.getElementById('container');
+        function copy(arr) {
+            return arr = arr.map(function(item) {
+                return item;
+            })
+        }
+        function Queue() {
+            var list = [];
+            var render = function(list) {
+                container.innerHTML = "";
+                list.forEach(function(item,index) {
+                    container.appendChild(createDiv(item));
+                })
+            }
+            return {
+                // 右侧入
+                rightin: function(val) {
+                    list.push(val);
+                    render(list);
+                },
+                // 移除中间项
+                removeItem: function(i) {
+                    console.log(list.splice(i,1));
+                    render(list);
+                },
+                search: function(str) {
+                    render(list);
+                    for (var i = 0; i < list.length; i++) {
+                        var innerContent = container.querySelectorAll("div")[i].innerHTML;
+                        container.querySelectorAll("div")[i].innerHTML = innerContent.replace(new RegExp(str, 'g'), '<span class="found">' + str + '</span>')
+                    };
+                }
+            }
+        }
+        var queue = new Queue();
+        // 创建div
+        function createDiv(value, str) {
+            var div = document.createElement('div');
+            div.className = 'redbox';
+            div.innerHTML = value;
+            return div;
+        }
+        function contentArr(content) {
+            return content.split(/[,，、\s]/).filter(function(item) {
+                return item !== "";
+            });
+        }
+        ribtn.onclick = function() {
+            var arr = contentArr(input.value);
+            arr.forEach(function(item) {
+                queue.rightin(item);
+            })
+        }
+        container.onclick = function(e) {
+            if (e.target.className === 'redbox') {
+                var list = container.getElementsByClassName('redbox');
+                var index = 0;
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i] === e.target) {
+                        index = i;
+                        break;
+                    }
+                };
+                queue.removeItem(index);
+            }
+        }
+        search.onclick = function() {
+            queue.search(searchinput.value);
+        }
+    </script>
+</body>
+</html>
