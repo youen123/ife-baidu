@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>任务四：基础JavaScript练习（一）</title>
+    <style>
+        #container {
+            margin-top: 10px;
+        }
+        .redbox {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            float: left;
+            margin-right: 10px;
+            color: #fff;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <input type="number" id="num">
+    <button id="left-in-btn">左侧入</button>
+    <button id="left-out-btn">左侧出</button>
+    <button id="right-in-btn">右侧入</button>
+    <button id="right-out-btn">右侧出</button>
+    <div id="container">
+    </div>
+    <script>
+        var libtn = document.getElementById('left-in-btn'),
+            lobtn = document.getElementById('left-out-btn'),
+            ribtn = document.getElementById('right-in-btn'),
+            robtn = document.getElementById('right-out-btn'),
+            input = document.getElementById('num'),
+            container = document.getElementById('container');
+        // 创建div
+        function createDiv() {
+            var div = document.createElement('div');
+            div.innerHTML = input.value;
+            div.className = 'redbox';
+            return div;
+        }
+        function checkinput() {
+            if (input.value === "" || isNaN(input.value)) {
+                alert("not valid!");
+                return false;
+            }
+            return true;
+        }
+        libtn.onclick = function() {
+            if (checkinput()) {
+                container.insertBefore(createDiv(),container.firstChild);
+            }
+        }
+        lobtn.onclick = function() {
+            if (container.childElementCount) {
+                var ele = container.firstElementChild;
+                alert(ele.innerHTML);
+                container.removeChild(ele);  
+            }
+        }
+        ribtn.onclick = function() {
+            if (checkinput()) {
+                container.appendChild(createDiv());
+            }
+        }
+        robtn.onclick = function() {
+            if (container.childElementCount) {
+                var ele = container.lastElementChild;
+                alert(ele.innerHTML);
+                container.removeChild(ele);  
+            }
+        }
+        container.onclick = function(e) {
+            if (e.target.className === 'redbox') {
+                container.removeChild(e.target);
+            }
+        }
+    </script>
+</body>
+</html>
