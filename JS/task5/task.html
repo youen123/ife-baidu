@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>任务五：基础JavaScript练习（一）</title>
+    <style>
+        #container {
+            margin-top: 10px;
+            height: 110px;
+            border: 1px solid gray;
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: flex-end;
+        }
+        .redbox {
+            text-align: center;
+            margin-right: 2px;
+            color: #fff;
+            background: red;
+            flex: 0 0 15px;
+        }
+    </style>
+</head>
+<body>
+    <input type="number" id="num">
+    <button id="left-in-btn">左侧入</button>
+    <button id="left-out-btn">左侧出</button>
+    <button id="right-in-btn">右侧入</button>
+    <button id="right-out-btn">右侧出</button>
+    <div id="container">
+    </div>
+    <button id="bubble-sort">冒泡排序</button>
+    <button id="select-sort">选择排序</button>
+    <script>
+        var libtn = document.getElementById('left-in-btn'),
+            lobtn = document.getElementById('left-out-btn'),
+            ribtn = document.getElementById('right-in-btn'),
+            robtn = document.getElementById('right-out-btn'),
+            input = document.getElementById('num'),
+            bubbleSortBtn = document.getElementById('bubble-sort'),
+            selectSortBtn = document.getElementById('select-sort'),
+            container = document.getElementById('container');
+        function copy(arr) {
+            return arr = arr.map(function(item) {
+                return item;
+            })
+        }
+        function Queue() {
+            var list = [];
+            var render = function(list, swaparr) {
+                container.innerHTML = "";
+                list.forEach(function(item,index) {
+                    if (swaparr && swaparr.indexOf(index) !== -1) {
+                        container.appendChild(createDiv(item, true));
+                    } else {
+                        container.appendChild(createDiv(item));
+                    }
+                })
+            }
+
+            var renderInterval = function(arr, swapindexarr) {
+                var curlist = arr.shift() || [];
+                var swapindex = swapindexarr.shift() || [];
+                if (curlist.length) {
+                    render(curlist, swapindex);
+                    setTimeout(renderInterval, 300, arr, swapindexarr);
+                } else {
+                    render(list);
+                }
+            }
+
+            return {
+                // 左侧入
+                leftin: function(val) {
+                    list.unshift(val);
+                    render(list);
+                },
+                // 左侧出
+                leftout: function(val) {
+                    console.log(list.shift());
+                    render(list);
+                },
+                // 右侧入
+                rightin: function(val) {
+                    list.push(val);
+                    render(list);
+                },
+                // 右侧出
+                rightout: function() {
+                    console.log(list.pop())
+                    render(list);
+                },
+                // 移除中间项
+                removeItem: function(i) {
+                    console.log(list.splice(i,1));
+                    render(list);
+                },
+                // 冒泡排序
+                bubbleSort: function() {
+                    var playqueue = []; // 保存过程中的状态
+                    var swapitem = [];  // 记录交换的位置
+                    for (var i = 0; i < list.length - 1; i++) {
+                        for (var j = 0; j < list.length - 1 - i; j++) {
+                            if (list[j] > list[j + 1]) {
+                                var tmp = list[j];
+                                list[j] = list[j + 1];
+                                list[j + 1] = tmp;
+                            } 
+                            playqueue.push(copy(list));
+                            swapitem.push([j, j + 1]);
+                        }
+                    }
+                    renderInterval(playqueue, swapitem);
+                },
+                // 选择排序
+                selectSort: function() {
+                    var playqueue = []; // 保存过程中的状态
+                    var swapitem = [];  // 记录交换的位置
+                    for (var i = 0; i < list.length - 1; i++) {
+                        var temp = list[i];
+                        // 最小数的下标
+                        var min_index = i;  
+                        // 找到待排序的序列中最小的数
+                        for (var j = i + 1; j < list.length; j++) {
+                            if (list[j] < list[min_index]) {
+                                min_index = j;
+                            }
+                        }
+                        // 将最小数与队首的数交换
+                        if (min_index != i) {
+                            list[i] = list[min_index];
+                            list[min_index] = temp;
+                            playqueue.push(copy(list));
+                            swapitem.push([i, min_index]);
+                        }
+
+                  }
+                  renderInterval(playqueue, swapitem);
+                }
+            }
+        }
+        var queue = new Queue();
+        // 创建div
+        function createDiv(value, cur) {
+            var div = document.createElement('div');
+            div.style.height = value + 'px';
+            div.className = 'redbox';
+            if (cur) {
+                div.style.background = "yellow";
+            }
+            return div;
+        }
+        // input输入校验
+        function checkinput() {
+            if (input.value === "" || isNaN(input.value)) {
+                alert("not valid!");
+                return false;
+            } else if (input.value < 10 || input.value > 100) {
+                alert("输入的值非法，只能在10-100间");
+                return false;
+            }
+            return true;
+        }
+        libtn.onclick = function() {
+            if (checkinput()) {
+                queue.leftin(input.value);
+            }
+        }
+        lobtn.onclick = function() {
+            if (container.childElementCount) {
+                queue.leftout();
+            }
+        }
+        ribtn.onclick = function() {
+            if (checkinput()) {
+                queue.rightin(input.value);
+            }
+        }
+        robtn.onclick = function() {
+            if (container.childElementCount) {
+                queue.rightout();
+            }
+        }
+        container.onclick = function(e) {
+            if (e.target.className === 'redbox') {
+                var list = container.getElementsByClassName('redbox');
+                var index = 0;
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i] === e.target) {
+                        index = i;
+                        break;
+                    }
+                };
+                queue.removeItem(index);
+            }
+        }
+        function init() {
+            for (var i = 9; i > 0; i--) {
+                queue.rightin(10 + 90 * Math.random());
+            }   
+        }
+        bubbleSortBtn.onclick = function() {
+            queue.bubbleSort();
+        }
+        selectSortBtn.onclick = function() {
+            queue.selectSort();
+        }
+
+        init();
+    </script>
+</body>
+</html>
