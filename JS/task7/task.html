@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>二叉树的遍历</title>
+    <style>
+        div {
+            padding: 10px;
+            border: 1px solid gray;
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+            flex: 1 ;
+            background: #fff;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <div>
+            <div>
+                <div></div>
+                <div></div>
+            </div>
+            <div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <div>
+            <div>
+                <div></div>
+                <div></div>
+            </div>
+            <div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+    <button id="dlrbtn">前序遍历</button>
+    <button id="ldrbtn">中序遍历</button>
+    <button id="lrdbtn">后序遍历</button>    
+</body>
+<script>
+    var root = document.getElementById('root'),
+        dlrbtn = document.getElementById('dlrbtn'),
+        ldrbtn = document.getElementById('ldrbtn'),
+        lrdbtn = document.getElementById('lrdbtn');
+    var time = 1;
+    function dlrmap(node) {
+        if (node) {
+            render(node);
+            for (var i = 0; i < node.children.length; i++) {
+                dlrmap(node.children[i]);
+            }
+        }
+    }
+    function ldrmap(node) {
+        if(node) {
+            if (node.children.length > 0) {
+                ldrmap(node.children[0]);
+            } 
+            render(node);
+            if (node.children.length > 1) {
+                ldrmap(node.children[1]);
+            }
+        }
+    }
+    function lrdmap(node) {
+        if(node) {
+            if (node.children.length > 0) {
+                lrdmap(node.children[0]);
+            } 
+            if (node.children.length > 1) {
+                lrdmap(node.children[1]);
+            }
+            render(node);
+        }
+   
+    }
+    function render(node) {
+        setTimeout(function(node){
+            node.style.background = "#9f9f9f";
+            setTimeout(function(node){
+                node.style.background = "#fff";
+            }, 500, node);
+        }, 500 * time++, node);
+
+    }
+    // 先序遍历
+    dlrbtn.onclick = function() {
+        dlrmap(root);
+    }
+    // 中序遍历 
+    ldrbtn.onclick = function() {
+        ldrmap(root);
+    }
+    // 后序遍历
+    lrdbtn.onclick = function() {
+        lrdmap(root);
+    }
+</script>
+</html>
