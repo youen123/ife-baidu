@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>树的遍历</title>
+    <style>
+        div {
+            border: 1px solid gray;
+            display: flex;
+            justify-content: space-between;
+            margin: 10px;
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        super
+        <div>
+            s2
+            <div>
+                Apple
+                <div>mac</div>
+                <div>mbp</div>
+                <div>phone</div>
+                <div>pod</div>
+            </div>
+            <div>
+                phone
+            </div>
+            <div>
+                book
+                <div>story</div>
+                <div>poem</div>
+            </div>
+        </div>
+        <div>
+            note
+            <div>
+                human
+                <div>code</div>
+                <div>operate</div>
+                <div>man</div>
+            </div>
+            <div>
+                program
+                <div>
+                    element 
+                    <div>cot</div>
+                </div>
+                <div>grass</div>
+            </div>
+        </div>
+        <div>fish</div>
+    </div>
+    <input type="text" id="searchtext"/>
+    <button id="searchbtn">查询</button>
+</body>
+<script>
+    var root = document.getElementById('root'),
+        dlrbtn = document.getElementById('dlrbtn'),
+        searchbtn = document.getElementById('searchbtn'),
+        searchtext = document.getElementById('searchtext'),
+        time = 1,
+        findFlag = false,
+        res = null;
+    // 前序遍历，查找
+    function dlrmap(node, str) {
+        if (findFlag) return;
+        if (node) {
+            if (node.childNodes.length && node.childNodes[0].nodeName === "#text") { // 只检查最开始的text
+                if (node.childNodes[0].nodeValue.indexOf(str) !== -1) { 
+                    // 标记节点
+                    mark(node);
+                    findFlag = true;
+                    return;
+                }
+            }
+            render(node);
+            for (var i = 0; i < node.children.length; i++) {
+                dlrmap(node.children[i], str);
+            }
+        }
+    }
+    // 设置颜色，可视化遍历的过程
+    function render(node) {
+        setTimeout(function(node){
+            node.style.background = "#9f9f9f";
+            setTimeout(function(node){
+                node.style.background = "#fff";
+            }, 300, node);
+        }, 300 * time++, node);
+
+    }
+    // 标记找到的节点
+    function mark(node) {
+        setTimeout(function(node) {
+           node.style.background = "yellow"; 
+       }, 300*time, node);
+        res = node;  
+    }
+    // 查找按钮事件
+    searchbtn.onclick = function() {
+        // 初始化一些全局变量
+        time = 1;
+        findFlag = false;
+        if (res) {
+            res.style.background = "#fff";
+        }
+        dlrmap(root, searchtext.value);
+    }
+</script>
+</html>
