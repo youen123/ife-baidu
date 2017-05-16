@@ -85,20 +85,23 @@
             node.style.background = "#9f9f9f";
             setTimeout(function(node){
                 node.style.background = "#fff";
-            }, 500, node);
-        }, 500 * time++, node);
+            }, 300, node);
+        }, 300 * time++, node);
 
     }
     // 先序遍历
     dlrbtn.onclick = function() {
+        time = 1;
         dlrmap(root);
     }
     // 中序遍历 
     ldrbtn.onclick = function() {
+        time = 1;
         ldrmap(root);
     }
     // 后序遍历
     lrdbtn.onclick = function() {
+        time = 1;
         lrdmap(root);
     }
 </script>
