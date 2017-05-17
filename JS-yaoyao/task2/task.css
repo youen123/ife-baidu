@@ -1,0 +1,58 @@
+* {
+    box-sizing: border-box;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+}
+form {
+    width: 500px;
+    margin: 20px auto;
+}
+.input-line {
+    display: flex;
+    flex-flow: row wrap;
+    height: 30px;
+}
+.label {
+    flex: 0 0 20%;
+    text-align: right;
+    padding-right: 10px;
+}
+.label label {
+    line-height: 30px;
+}
+input {
+    flex: 0 0 80%;
+    border-radius: 5px;
+    border: 1px solid #e5e5e5;
+    padding-left: 5px;
+}
+.tip {
+    margin: 10px 0 10px 20%;
+    color: gray;
+}
+.pull-right {
+    float: right;
+}
+button {
+    padding: 8px 12px;
+    background: #347ab7;
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 3px;
+}
+input:focus {
+    border: 1px solid #8fc4ef;
+}
+input.pass {
+    border: 1px solid #6fbd5b;
+}
+input.error {
+    border: 1px solid #e54e5d;
+}
+p.pass {
+    color: #6fbd5b;
+}
+p.error {
+    color: #e54e5d;
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单校验</title>
+    <link rel="stylesheet" href="task.css">
+</head>
+<body>
+    <form>
+        <div class="input-group">
+            <div class="input-line">
+                <div class="label">
+                    <label>名称:</label>
+                </div>
+                <input type="text" id="name">
+            </div>
+            <p class="tip" id="nametip">必填，长度为4-16个字符</p>
+        </div>
+        <div class="input-group">
+            <div class="input-line">
+                <div class="label">
+                    <label>密码:</label>
+                </div>
+                <input type="password" id="password">
+            </div>
+            <p class="tip" id="passwordtip"></p>
+        </div>
+        <div class="input-group">
+            <div class="input-line">
+                <div class="label">
+                    <label>确认密码:</label>
+                </div>
+                <input type="password" id="repassword">
+            </div>
+            <p class="tip" id="repasswordtip"></p>
+        </div>
+        <div class="input-group">
+            <div class="input-line">
+                <div class="label">
+                    <label>邮箱:</label>
+                </div>
+                <input type="email" id="email">
+            </div>
+            <p class="tip" id="emailtip"></p>
+        </div>
+        <div class="input-group">
+            <div class="input-line">
+                <div class="label">
+                    <label>电话:</label>
+                </div>
+                <input type="tel" id="tel">
+            </div>
+            <p class="tip" id="teltip"></p>
+        </div>
+        <button class="pull-right" id="commit">提交</button>
+    </form>
+    <script src="task.js"></script>
+</body>
+</html>
