@@ -1,0 +1,63 @@
+div { 
+    box-sizing: border-box;
+}
+.box {
+    width: 331px;
+    margin: 20px auto;
+}
+.numrow {
+    display: flex;
+    text-align: center;
+    margin-left: 30px;
+}
+.numrow span {
+    flex: 0 0 30px;
+}
+.row {
+    display: flex;
+}
+.numcol {
+    display: flex;
+    flex-flow: column;
+    width: 30px;
+    align-items: center;
+}
+.numcol span {
+    flex: 1;
+    line-height: 30px;
+}
+.grid {
+    display: flex;
+    flex-flow: row wrap;
+    border-top: 1px solid gray;
+    border-left: 1px solid gray;
+    position: relative;
+}
+.grid > div {
+    flex: 0 0 30px;
+    height: 30px;
+    border-bottom: 1px solid gray;
+    border-right: 1px solid gray;
+}
+.operate {
+    margin: 15px 0 0 30px;
+}
+.cube {
+    width: 30px;
+    height: 30px;
+    background: red;
+    position: absolute;
+}
+.cube > div {
+    height: 5px;
+    background: blue;
+}
+.cube.left {
+    transform: rotate(-90deg);
+}
+.cube.right {
+    transform: rotate(90deg);
+}
+.cube.down {
+    transform: rotate(180deg) ;
+}

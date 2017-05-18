@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>听指令的小方块</title>
+    <link rel="stylesheet" href="task.css">
+</head>
+<body>
+    <div class="box">
+        <div class="numrow">
+        </div>
+        <div class="row">
+            <div class="numcol">
+            </div>
+            <div class="grid">
+            </div>  
+        </div>
+        <div class="operate">
+            <input type="text" id="operation">
+            <button id="move">执行</button>
+        </div>
+        <p>在输入框中允许输入如下指令，按下按钮后，使得正方形做相应动作<p>
+        <ul>
+            <li>GO：向蓝色边所面向的方向前进一格（一格等同于正方形的边长）</li>
+            <li>TUN LEF：向左转（逆时针旋转90度）</li>
+            <li>TUN RIG：向右转（顺时针旋转90度）</li>
+            <li>TUN BAC：向右转（旋转180度）</li>            
+        </ul>
+    </div>
+    <script>
+        var grid = document.querySelector('.grid'),
+            movebtn = document.querySelector("#move"),
+            operation = document.querySelector("#operation");
+        // 棋盘
+        function Grid(n) {
+            var i,
+                numrow = document.querySelector('.numrow'),
+                numcol = document.querySelector('.numcol');
+            grid.style.width = (30 * n + 1) + 'px'; 
+            for (i = 0; i < n * n; i++) {
+                var div = document.createElement('div');
+                grid.appendChild(div);
+            }
+            for (i = 1; i < n + 1; i++) {
+                var span = document.createElement('span');
+                span.innerText = i;
+                numrow.appendChild(span);
+                span = document.createElement('span');
+                span.innerText = i;
+                numcol.appendChild(span);
+            };
+        }
+        // 小方块
+        function Cube(n) {
+            var div = document.createElement('div');
+            var bluediv = document.createElement('div');
+            div.className = "cube";
+            div.appendChild(bluediv);
+            grid.appendChild(div);
+            var row = 6, col = 6, direction = 0;
+            function setPosition() {
+                div.style.left = (row - 1) * 30 + 'px';
+                div.style.top = (col - 1) * 30 + 'px';
+            }
+            setPosition();
+            return {
+                // 移动
+                go: function() {
+                    if (direction === 0 && col > 1) { // up 
+                        col--;
+                    } else if(direction === 1 && row < n) { // right
+                        row++;
+                    } else if(direction === 2 && col < n) { // down
+                        col++;
+                    } else if(direction === 3 && row > 1) { // left
+                        row--;
+                    }
+                    setPosition();
+                },
+                // 旋转
+                setDirection: function(n) {
+                    direction = (direction + 4 + n) % 4; 
+                    switch(direction) {
+                        case 0:
+                            div.className = "cube up";
+                            break;
+                        case 1:
+                            div.className = "cube right";
+                            break;
+                        case 2:
+                            div.className = "cube down";
+                            break;
+                        case 3:
+                            div.className = "cube left";
+                            break;
+                    }
+                }
+            }
+        }
+        new Grid(10);
+        var cube = new Cube(10);
+        movebtn.onclick = function() {
+            switch(operation.value) {
+                case "GO":
+                    cube.go();
+                    break;
+                case "TUN LEF":
+                    cube.setDirection(-1);
+                    break;
+                case "TUN RIG":
+                    cube.setDirection(1);
+                    break;
+                case "TUN BAC":
+                    cube.setDirection(2); 
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
