@@ -44,20 +44,11 @@ div {
 }
 .cube {
     width: 30px;
-    height: 30px;
     background: red;
     position: absolute;
+    transition: left 1s, top 1s, transform 0.3s;
 }
 .cube > div {
     height: 5px;
     background: blue;
-}
-.cube.left {
-    transform: rotate(-90deg);
-}
-.cube.right {
-    transform: rotate(90deg);
-}
-.cube.down {
-    transform: rotate(180deg) ;
 }

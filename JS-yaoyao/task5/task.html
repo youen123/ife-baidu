@@ -6,6 +6,20 @@
     <link rel="stylesheet" href="task.css">
 </head>
 <body>
+    <ul style="float: left;width:300px;font-size: 14px;">
+        <li>GO：向蓝色边所面向的方向前进一格（一格等同于正方形的边长）</li>
+        <li>TUN LEF：向左转（逆时针旋转90度）</li>
+        <li>TUN RIG：向右转（顺时针旋转90度）</li>
+        <li>TUN BAC：向右转（旋转180度）</li>  
+        <li>TRA LEF：向屏幕的左侧移动一格，方向不变</li>
+        <li>TRA TOP：向屏幕的上面移动一格，方向不变</li>
+        <li>TRA RIG：向屏幕的右侧移动一格，方向不变</li>
+        <li>TRA BOT：向屏幕的下面移动一格，方向不变</li>
+        <li>MOV LEF：方向转向屏幕左侧，并向屏幕的左侧移动一格</li>
+        <li>MOV TOP：方向转向屏幕上面，向屏幕的上面移动一格</li>
+        <li>MOV RIG：方向转向屏幕右侧，向屏幕的右侧移动一格</li>
+        <li>MOV BOT：方向转向屏幕下面，向屏幕的下面移动一格</li>                      
+    </ul>
     <div class="box">
         <div class="numrow">
         </div>
@@ -19,13 +33,6 @@
             <input type="text" id="operation">
             <button id="move">执行</button>
         </div>
-        <p>在输入框中允许输入如下指令，按下按钮后，使得正方形做相应动作<p>
-        <ul>
-            <li>GO：向蓝色边所面向的方向前进一格（一格等同于正方形的边长）</li>
-            <li>TUN LEF：向左转（逆时针旋转90度）</li>
-            <li>TUN RIG：向右转（顺时针旋转90度）</li>
-            <li>TUN BAC：向右转（旋转180度）</li>            
-        </ul>
     </div>
     <script>
         var grid = document.querySelector('.grid'),
@@ -58,43 +65,58 @@
             div.appendChild(bluediv);
             grid.appendChild(div);
             var row = 6, col = 6, direction = 0;
+            div.style.left = (row - 1) * 30 + 'px';
+            div.style.top = (col - 1) * 30 + 'px';
             function setPosition() {
-                div.style.left = (row - 1) * 30 + 'px';
-                div.style.top = (col - 1) * 30 + 'px';
+                setTimeout(function(div, row, col) {
+                    div.style.left = (row - 1) * 30 + 'px';
+                    div.style.top = (col - 1) * 30 + 'px';
+                }, 300, div, row, col);
             }
-            setPosition();
+            var deg = 0;
             return {
                 // 移动
-                go: function() {
-                    if (direction === 0 && col > 1) { // up 
+                go: function(movedirection) {
+                    if (typeof movedirection === 'undefined') {
+                        movedirection = direction;
+                    }
+                    if (movedirection === 0 && col > 1) { // up 
                         col--;
-                    } else if(direction === 1 && row < n) { // right
+                    } else if(movedirection === 1 && row < n) { // right
                         row++;
-                    } else if(direction === 2 && col < n) { // down
+                    } else if(movedirection === 2 && col < n) { // down
                         col++;
-                    } else if(direction === 3 && row > 1) { // left
+                    } else if(movedirection === 3 && row > 1) { // left
                         row--;
                     }
                     setPosition();
                 },
                 // 旋转
-                setDirection: function(n) {
-                    direction = (direction + 4 + n) % 4; 
-                    switch(direction) {
-                        case 0:
-                            div.className = "cube up";
-                            break;
-                        case 1:
-                            div.className = "cube right";
-                            break;
-                        case 2:
-                            div.className = "cube down";
-                            break;
-                        case 3:
-                            div.className = "cube left";
-                            break;
+                setDirection: function(n, rotate = true) {
+                    if (rotate) {
+                        direction = (direction + 4 + n) % 4; 
+                        if (n === -1) {
+                            deg--;
+                        } else if (n === 1){
+                            deg++;
+                        } else if (n === 2) {
+                            deg += 2;
+                        }
+                        div.style.transform = 'rotate(' + deg * 90 + 'deg)';
+                        return;
+                    } 
+                    direction = n;
+                    if ((deg - n) % 4 === 3) {
+                        deg++;
+                    } else if ((deg - n) % 4 === -3) {
+                        deg--;
+                    } else {
+                        deg -= (deg - n) % 4;
                     }
+                    div.style.transform = 'rotate(' + deg * 90 + 'deg)';
+                    return;
                 }
+
             }
         }
         new Grid(10);
@@ -112,6 +134,34 @@
                     break;
                 case "TUN BAC":
                     cube.setDirection(2); 
+                    break;
+                case "TRA LEF":
+                    cube.go(3);
+                    break;
+                case "TRA TOP":
+                    cube.go(0);
+                    break;
+                case "TRA RIG":
+                    cube.go(1);
+                    break;
+                case "TRA BOT":
+                    cube.go(2);
+                    break;
+                case "MOV LEF":
+                    cube.setDirection(3, false);
+                    cube.go();
+                    break;
+                case "MOV TOP":
+                    cube.setDirection(0, false);
+                    cube.go();
+                    break;
+                case "MOV RIG":
+                    cube.setDirection(1, false);
+                    cube.go();
+                    break;
+                case "MOV BOT":
+                    cube.setDirection(2, false);
+                    cube.go();
                     break;
             }
         }
