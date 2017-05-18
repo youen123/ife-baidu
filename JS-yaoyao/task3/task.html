@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单联动</title>
+    <style>
+    form { width: 500px; margin: 20px auto;}
+    </style>
+</head>
+<body>
+    <form>
+        <input type="radio" name="student_type" id="student_type1"/>
+        <label for="student_type1">在校生</label>
+        <input type="radio" name="student_type" id="student_type2"/>
+        <label for="student_type2">非在校生</label>
+        <div id="school_student" style="display:none">
+            <label>学校：</label>
+            <select name="city" id="city">
+            </select>
+            <select name="school" id="school">
+                <option value="0">请选择</option>
+            </select>
+        </div>
+        <div id="noschool_student" style="display:none">
+            <label>就业单位</label>
+            <input type="text">
+        </div>
+    </form>
+    <script>
+        var stuType1 = document.getElementById('student_type1'),
+            stuType2 = document.getElementById('student_type2'),
+            type1Info = document.getElementById('school_student'),
+            type2Info = document.getElementById('noschool_student'),
+            city = document.getElementById('city'),
+            school = document.getElementById('school');
+        var citylist = ['北京', '天津', '上海'],
+            schoollist = {'北京': ['北京邮电大学', '清华大学', '北京大学'],
+                      '天津': ['天津大学'],
+                      '上海': ['上海交通大学']};
+        function initSelect() {
+            city.innerHTML = "";
+            city.appendChild(createOption("0","请选择"));
+            citylist.forEach(function(item) {
+                city.appendChild(createOption(item));
+            })
+        }
+        function createOption(value, text) {
+            var option = document.createElement('option');
+            option.value = value;
+            option.innerText = text || value;
+            return option;
+        }
+        stuType1.onchange = function () {
+            type1Info.style.display = "block";
+            type2Info.style.display = "none";
+            initSelect();
+        }
+        stuType2.onchange = function() {
+            type1Info.style.display = "none";
+            type2Info.style.display = "block";            
+        }
+        city.onchange = function() {
+            var citySelected = city.value;
+            school.innerHTML = "";
+            school.appendChild(createOption("0","请选择"));
+            if (citySelected !== "0") {
+                var schools = schoollist[citySelected];
+                schools.forEach(function(item) {
+                    school.appendChild(createOption(item));
+                })
+            }
+        }
+    </script>
+</body>
+</html>
