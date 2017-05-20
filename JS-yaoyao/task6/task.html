@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UI组件之浮出层</title>
+    <style>
+    body {
+        padding: 0;
+    }
+    .mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        background: rgba(0,0,0,0.4);
+    }
+    .overBox {
+        width: 500px;
+        height: auto;
+        max-height: 80%;
+        overflow: auto;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background: #fff;
+    }
+    .overBox header {
+        background: #e5e5e5;
+        font-size: 18px;
+        padding: 10px;
+    }
+    .overBox .content {
+        padding: 10px;
+    }
+    .overBox .btn-group {
+        padding: 10px;
+    }
+    .btn-group:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    .overBox .btn-group button {
+        float: right;
+        border: none;
+        font-size: 14px;
+        padding: 8px 12px;
+        border-radius: 4px;
+        margin-left: 10px;
+        background: #38ba72;
+        color: #fff;
+    }
+    </style>
+</head>
+<body>
+    <button>弹框</button>
+    <script src="drag.js"></script>
+    <script>
+        var modal = new Modal({
+            id: 'modal1',
+            title: "这是一个浮出层",
+            contentElement: "这是一个浮出层",
+            ok_call_back: function() {
+                console.log('ok');
+            },
+            cancle_call_back: function() {
+                console.log('cancle');
+            }
+        });
+        var btn = document.querySelector("button");        
+        btn.onclick = function() {
+            modal.show();
+        }
+        function Modal(obj) {
+            var mask;
+            if (!document.getElementById(obj.id)) {
+                var mask = document.createElement('div');
+                mask.className = "mask";
+                mask.id = obj.id;
+                var overbox = document.createElement('div');
+                overbox.className = "overBox";
+                // overbox.setAttribute('draggable', true);
+                var header = document.createElement('header');
+                header.innerHTML = obj.title || "";
+                var content = document.createElement('div');
+                content.className = "content";
+                content.innerHTML = obj.contentElement || "";
+                var btnWrap = document.createElement('div');
+                btnWrap.className = "btn-group";
+                var btn1 = document.createElement('button');
+                btn1.innerHTML = "确定";
+                var btn2 = document.createElement('button');
+                btn2.innerHTML = "取消";                
+                var body = document.querySelector("body");
+                btnWrap.appendChild(btn2);
+                btnWrap.appendChild(btn1);
+                overbox.appendChild(header);
+                overbox.appendChild(content);
+                overbox.appendChild(btnWrap);
+                mask.appendChild(overbox);
+                body.appendChild(mask);
+                btn1.onclick = function() {
+                    onOK(obj.ok_call_back);
+                }
+                btn2.onclick = function() {
+                    onCancle(obj.cancle_call_back);
+                }
+                mask.onclick = function(e) {
+                    if (e.target === this) {
+                        hide();
+                    }
+                }
+                var startx = 0;
+                startDrag(header, overbox)
+                // overbox.ondragstart = function(e) {
+                //     startx = e.screenX;
+                //     starty = e.screenY;
+                //     console.log(e.screenX);
+                //     console.log(e.screenY);
+                // }
+                // overbox.ondragend = function(e) {
+                //     console.log('out');
+                //     console.log(e.screenX);
+                //     console.log(e.screenY);
+                //     var offsetx = e.screenX - startx;
+                //     if (offsetx > 0) {
+                //     } else {
+                //     }
+                    
+                // }
+
+            }
+            function hide() {
+                mask.style.display = "none";
+            }
+            function onOK(ok_call_back) {
+                if (typeof ok_call_back === 'function') {
+                    ok_call_back();
+                }
+                hide();
+            }
+            function onCancle(cancle_call_back) {
+                if (typeof cancle_call_back === 'function') {
+                    cancle_call_back();
+                }
+                hide();
+            }
+            return {
+                show: function() {
+                    mask.style.display = 'block';
+                },
+                hide: hide
+            }
+        }
+    </script>
+</body>
+</html>
