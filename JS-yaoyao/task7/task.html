@@ -1,0 +1,156 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>UI组件之排序表格</title>
+        <style>
+            table {
+                width: 500px;
+                margin: 20px auto;
+                border-collapse: collapse;
+                text-align: center;
+            }
+            thead {
+                background: #333;
+                color: #fff;
+            }
+            td {
+                border: 1px solid gray;
+            }
+            .sort {
+                background: gray;
+            }
+            [data-order='0']:after {
+                content: "<";
+                display: inline-block;
+            }
+            [data-order='1']:after {
+                content: ">";
+                display: inline-block;
+            }
+
+        </style>
+    </head>
+    <body>
+        <script>
+        var columns = [
+            {
+                title: '姓名',
+                dataIndex: 'name',
+                isSorted: false
+            },
+            {
+                title: '语文',
+                dataIndex: 'chinese',
+                isSorted: true
+            },
+            {
+                title: '数学',
+                dataIndex: 'math',
+                isSorted: true
+            },
+            {
+                title: '英语',
+                dataIndex: 'english',
+                isSorted: true
+            },
+            {
+                title: '总分',
+                dataIndex: 'total',
+                isSorted: true
+            }
+        ];
+        var dataSource = [
+            {
+                name: '小明',
+                chinese: 80,
+                math: 90,
+                english: 70,
+                total: 240
+            },
+            {
+                name: '小红',
+                chinese: 90,
+                math: 60,
+                english: 90,
+                total: 240
+            },
+            {
+                name: '小明',
+                chinese: 60,
+                math: 100,
+                english: 70,
+                total: 230
+            }
+        ]
+        function Table(columns,dataSource) {
+            // 生成表格
+            function render(columns, dataSource) {
+                var table = document.createElement('table');
+                renderThead(table, columns)
+                renderTbody(table, columns, dataSource);
+                var body = document.querySelector('body');
+                body.appendChild(table);
+            }
+            // 重置排序
+            function clearTd(tr, td) {
+                for (var i = 0; i < tr.children.length; i++) {
+                    if (tr.children[i] !== td) {
+                        tr.children[i].setAttribute('data-order', 3);
+                    }   
+                }
+            }
+            // 渲染表头数据
+            function renderThead(table, columns) {
+                var thead = document.createElement('thead');
+                var tr = document.createElement('tr');
+                var td;
+                columns.forEach(function(item) {
+                    td = document.createElement('td');
+                    td.innerHTML = item.title;
+                    if(item.isSorted) {
+                        td.className = "sort";
+                        td.setAttribute('data-order', 3);
+                        td.onclick = function() {
+                            clearTd(tr, this);
+                            var isUp = this.getAttribute('data-order');
+                            sort(item.dataIndex, table, isUp);
+                            this.setAttribute('data-order', isUp === "0" ? "1": "0");
+                        }
+                    }
+                    tr.appendChild(td); 
+                })
+                thead.appendChild(tr);
+                table.appendChild(thead);   
+            }
+            // 渲染表格数据
+            function renderTbody(table, columns, dataSource) {
+                var tbody = table.querySelector('tbody');
+                if (tbody) {
+                    table.removeChild(tbody);
+                }
+                tbody = document.createElement('tbody');
+                dataSource.forEach(function(item) {
+                    var tr = document.createElement('tr');
+                    columns.forEach(function(col) {
+                        td = document.createElement('td');
+                        td.innerHTML = item[col.dataIndex];
+                        tr.appendChild(td);
+                    })
+                    tbody.appendChild(tr);
+                })
+                table.appendChild(tbody);
+            }
+            // 排序
+            function sort(dataIndex, table, isUp) {
+                var data = dataSource.sort(function(a, b) {
+                    return isUp === "0" ? b[dataIndex] - a[dataIndex] : a[dataIndex] - b[dataIndex];
+                })
+                renderTbody(table, columns, data);
+            }
+            render(columns, dataSource);
+        }
+        new Table(columns, dataSource);
+        </script>
+    </body>
+    </html>
